@@ -18,7 +18,7 @@ numbers = [br1, br2, br3, br4, br5, br6, br7, br8, br9, br0]
 
 def control(num):
 	GPIO.setmode(GPIO.BCM)
-	for i in range(0, 12):
+	for i in range(0, 4):
 		GPIO.setup(br[i], GPIO.OUT)
 
 	for pin in numbers[num - 1]:
