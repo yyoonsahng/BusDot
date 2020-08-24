@@ -4,7 +4,7 @@ Created on Thu Aug 20 04:16:22 2020
 
 @author: tarah
 """
-import control
+import control as con
 import hw_init as hw
 import time
 from timeloop import Timeloop
@@ -16,7 +16,13 @@ from requests.exceptions import HTTPError
 tl = Timeloop()
 
 #시나리오별 state
-state = "ROUTE_NAME" #ROUTE_NAME, DESTINATION,
+STATE = "ROUTE_NAME" #ROUTE_NAME, DESTINATION, ...
+
+# 현재 출력되고 있는 점자 숫자
+SELECTED_NUM =0
+
+#고른 노선
+SELECTED_ROUNTE_NAME = ""
 #전역 변수
 host="http://114.70.21.89:1337"
 
@@ -55,27 +61,67 @@ def send_my_gps_info_15s(route_std_list):
         pass
     
     print ("15s job current time : {}".format(time.ctime()))
- 
+
+'''
+mode
+0: prev
+1: next
+'''
+def GuardNumberRange(mode):
+    global SELECTED_NUM
+    if mode == 0:
+        if SELECTED_NUM == 0:
+            SELECTED_NUM = 9
+        else:
+            SELECTED_NUM -= 1
+    else:
+        if SELECTED_NUM == 9:
+            SELECTED_NUM =0
+        else:
+            SELECTED_NUM += 1
+
+def select_route_name():
+    #처음엔 0 출력
+    con.control(SELECTED_NUM)
+
+
 def switch_prev_callback():
+    print("switch_prev_callback")
     #노선 고르기
-    if state == "ROUTE_NAME":
+    if STATE == "ROUTE_NAME":
+        GuardNumberRange(0)
+        con.control(SELECTED_NUM)
         print("state: ROUTE_NAME")
 
-    print("switch_prev_callback")
+
 
 def switch_next_callback():
-    # 노선 고르기
-    if state == "ROUTE_NAME":
-        print("state: ROUTE_NAME")
     print("switch_next_callback")
+    # 노선 고르기
+    if STATE == "ROUTE_NAME":
+        GuardNumberRange(1)
+        con.control(SELECTED_NUM)
+        print("state: ROUTE_NAME")
+
+def switch_save_callback():
+    global SELECTED_ROUNTE_NAME
+    print("switch_save_callback")
+    if STATE == "ROUTE_NAME":
+        SELECTED_ROUNTE_NAME += str(SELECTED_NUM)
+
+def switch_done_callback():
+    print("switch_done_callback")
+
+
 
 def main():
     # GPIO 초기화 (GPS,Solenoid, Switch) - 이벤트 핸들러 등록
    # hw.hw_init()
-    hw.init(switch_prev_callback, switch_next_callback)
+    hw.init(switch_prev_callback, switch_next_callback,switch_save_callback, switch_done_callback)
     print("please")
     tl.start(block=False)
     print("wow2")
+
     
 if __name__ == "__main__":
     main()
