@@ -10,19 +10,40 @@ import RPI.GPIO as GPIO
 #import tts
 #import stt
 
+SWITCH_PREV=21
+SWITCH_NEXT=20
+
 SWITCH_TTS=23
-SWITCH_STT=21
+SWITCH_STT=22
 GPS=24
 
-def HW_INIT():
+
+def init(switch_prev_callback, switch_next_callback):
+    GPIO.setmode(GPIO.BCM)
+
+    # initialize pins
+    GPIO.setup(SWITCH_PREV, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    GPIO.setup(SWITCH_NEXT, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    GPIO.setup(SWITCH_TTS, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    GPIO.setup(SWITCH_STT, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+    # add eventHandler
+    GPIO.add_event_detect(SWITCH_PREV, GPIO.RISING, callback=switch_prev_callback)
+    GPIO.add_event_detect(SWITCH_NEXT, GPIO.RISING, callback=switch_next_callback)
+    GPIO.add_event_detect(SWITCH_TTS, GPIO.RISING, callback=switch_tts_callback)
+    GPIO.add_event_detect(SWITCH_STT, GPIO.RISING, callback=switch_stt_callback)
+def init():
     
     GPIO.setmode(GPIO.BCM)
     
     #initialize pins
+    GPIO.setup(SWITCH_PREV, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    GPIO.setup(SWITCH_NEXT, GPIO.IN, pull_up_down=GPIO.PUD_UP)
     GPIO.setup(SWITCH_TTS,GPIO.IN,pull_up_down=GPIO.PUD_UP)
     GPIO.setup(SWITCH_STT,GPIO.IN,pull_up_down=GPIO.PUD_UP)
 
     #add eventHandler
+
     GPIO.add_event_detect(SWITCH_TTS,GPIO.RISING,callback=switch_tts_callback)
     GPIO.add_event_detect(SWITCH_STT,GPIO.RISING,callback=switch_stt_callback)
 

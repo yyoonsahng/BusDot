@@ -4,6 +4,7 @@ Created on Thu Aug 20 04:16:22 2020
 
 @author: tarah
 """
+import control
 import hw_init as hw
 import time
 from timeloop import Timeloop
@@ -14,6 +15,8 @@ from requests.exceptions import HTTPError
 
 tl = Timeloop()
 
+#시나리오별 state
+state = "ROUTE_NAME" #ROUTE_NAME, DESTINATION,
 #전역 변수
 host="http://114.70.21.89:1337"
 
@@ -53,11 +56,23 @@ def send_my_gps_info_15s(route_std_list):
     
     print ("15s job current time : {}".format(time.ctime()))
  
+def switch_prev_callback():
+    #노선 고르기
+    if state == "ROUTE_NAME":
+        print("state: ROUTE_NAME")
 
+    print("switch_prev_callback")
+
+def switch_next_callback():
+    # 노선 고르기
+    if state == "ROUTE_NAME":
+        print("state: ROUTE_NAME")
+    print("switch_next_callback")
 
 def main():
     # GPIO 초기화 (GPS,Solenoid, Switch) - 이벤트 핸들러 등록
-    hw.hw_init()
+   # hw.hw_init()
+    hw.init(switch_prev_callback, switch_next_callback)
     print("please")
     tl.start(block=False)
     print("wow2")
