@@ -1,4 +1,4 @@
-# :oncoming_bus:HamkkeTajo Raspberry Pi:oncoming_bus:
+# :oncoming_bus:HamkkeTajo Device:oncoming_bus:
 
 
 ### 시각장애인을 위한 버스 이용 보조 서비스 ‘함께타조’:bird:
