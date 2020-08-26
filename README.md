@@ -1,1 +1,1 @@
-# tajo_rasberrypi
+# tajo_raspberrypi
