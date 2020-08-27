@@ -6,6 +6,7 @@ Created on Thu Aug 20 04:16:22 2020
 """
 import control as con
 import hw_init as hw
+import tts_module as tts
 import time
 from timeloop import Timeloop
 from datetime import timedelta
@@ -23,6 +24,9 @@ tl = Timeloop()
 # 2."STN_ID" : 해당 노선을 지나는 정류장 중 하나 입력
 # 2-1. "STN_ID_CHK" : 정류장 확인질문
 # 3."RUNNING" : 승차 직후 ~ 하차
+
+#시나리오 별 버튼 클릭 시 재생 문구
+STATE_ANNOUNCEMENTS={}
 
 STATE = "ROUTE_NAME" #ROUTE_NAME, DESTINATION, ...
 
@@ -105,7 +109,7 @@ def switch_prev_callback():
         GuardNumberRange(0)
         con.control(SELECTED_NUM)
         print("state: ROUTE_NAME")
-
+        
 
 
 def switch_next_callback():
@@ -115,15 +119,19 @@ def switch_next_callback():
         GuardNumberRange(1)
         con.control(SELECTED_NUM)
         print("state: ROUTE_NAME")
+         
 
 def switch_save_callback():
     global SELECTED_ROUTE_NAME
     print("switch_save_callback")
     if STATE == "ROUTE_NAME":
         SELECTED_ROUTE_NAME += str(SELECTED_NUM)
+  
+        
 
 def switch_done_callback():
 
+    global STATE
     # 승차 정류장 설정
     if STATE == "DEACTIVE":
         global SELECTED_STN_NAME
@@ -140,11 +148,14 @@ def switch_done_callback():
         SELECTED_STN_ID = res.json()[0]['stn_id']
 
         print("승차 위치로 \'"+SELECTED_STN_NAME+"\'가 맞습니까?\n")
+        tts.tts_input("승차할 정류소가 "+SELECTED_STN_NAME+"가 맞습니까?")
+        #TO DO : 승차 정류소가 맞다면 save, 아니면 pre 눌러서 분기--> 그 이후에 상태 바꾸기
         STATE = "DEACTIVATE_CHK"
 
     # 승차 정류장 설정 확인
     elif STATE == "DEACTIVATE_CHK":
         print("승차 정류장 설정 완료")
+        tts.tts_input("승차 정류장 설정이 완료되었습니다.")
         STATE = "ROUTE_NAME"
 
     # 노선 입력
@@ -152,13 +163,16 @@ def switch_done_callback():
         global SELECTED_ROUTE_NAME
         if SELECTED_ROUTE_NAME != "":
             print("승차 노선이 "+SELECTED_ROUTE_NAME+"가 맞습니까?\n")
+            tts.tts_input("승차 노선이 "+SELECTED_ROUTE_NAME+"가 맞습니까?")
             STATE = "ROUTE_NAME_CHK"
-        else:
-            STATE = "ROUTE_NAME"
+        
+            
+            
    
     # 노선 입력 확인
     elif STATE == "ROUTE_NAME_CHK":
         print("노선 설정 완료")
+        tts.tts_input("노선 설정이 완료되었습니다.")
         STATE = "STN_NAME"
 
     # 하차벨 예약
@@ -167,12 +181,15 @@ def switch_done_callback():
         global USER_ID
         global SELECTED_STN_ID
         global SELECTED_ROUTE_NAME
-
+        
+               
         if SELECTED_STN_ID == "" or SELECTED_ROUTE_NAME == "":
             STATE = "STN_NAME"
             print("유효하지 않은 역 또는 노선")
+            
             return
-
+        else:               #하차벨 예약 중 누름
+            tts.tts_input("성수역")
         print("노선 " + SELECTED_ROUTE_NAME + " 과 정류장 이름 "+SELECTED_STN_ID+" 가 맞습니까? ")
         STATE = "STN_NAME_CHK"
 
@@ -189,9 +206,11 @@ def switch_done_callback():
         if str(status_data) == "200":
             # TODO : 몇분후에 도착하는지 알림
             print("n분 후에 도착 예정입니다. ")
+            tts.tts_input("n분 후 도착 예정입니다.")
             STATE = "RUNNING"
         else :
             print("유효하지 않은 요청")
+            tts.tts_input("잘못된 요청입니다.")
             STATE = "STN_NAME"
             SELECTED_STN_ID = ""
         
@@ -199,15 +218,16 @@ def switch_done_callback():
         STATE = "DEACTIVATE"
         # TODO : 종료(?)
 
+    else:
+        tts.tts_scenario(STATE)
     print("switch_done_callback")
 
 def main():
     # GPIO 초기화 (GPS,Solenoid, Switch) - 이벤트 핸들러 등록
    # hw.hw_init()
     hw.init(switch_prev_callback, switch_next_callback,switch_save_callback, switch_done_callback)
-    print("please")
+    STATE_ANNOUNCEMENTS=tts.get_tts_scenario() 
     tl.start(block=False)
-    print("wow2")
 
     
 if __name__ == "__main__":
