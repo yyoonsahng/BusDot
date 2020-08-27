@@ -21,6 +21,15 @@
 
 ### :warning: 사전 설정 :warning:
 - 라즈베리 파이 오디오 출력 확인
+	```
+	 # 라즈비안 업데이트 
+	 - sudo apt-get update
+	 - sudo apt-get upgrade
+	 - sudo apt-get install alsa-units
+	
+	 # 개인 실행 환경에 따라 사운드 출력 변경 (예 3.5mm audio jack)
+	 - sudo amixer cset numid=3 1
+	```
 - 네트워크 환경 설정
 
 
