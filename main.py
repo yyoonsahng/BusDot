@@ -23,7 +23,8 @@ tl = Timeloop()
 # 1-1. "ROUTE_NAME_CHK" : 노선 번호 입력 확인질문
 # 2."STN_ID" : 해당 노선을 지나는 정류장 중 하나 입력
 # 2-1. "STN_ID_CHK" : 정류장 확인질문
-# 3."RUNNING" : 승차 직후 ~ 하차
+# 3."RUNNING" : 승차 직후 ~ 10 정거장 초과 남음
+# 4. "ARRIVING": 도착 전 10 정거장 이하 남음 (알림 시작)
 
 #시나리오 별 버튼 클릭 시 재생 문구
 STATE_ANNOUNCEMENTS={}
@@ -70,6 +71,14 @@ def send_my_gps_info_15s(route_std_list):
     
     if stn_info_list[0]['stn_id']==next_stn_id: #가장 가까운 정류장이 다음 정류장으로 바뀜
         std_left_cnt-=1
+        
+        if std_left_cnt<=10 and std_left_cnt >=0: #점자 버튼 안내 시작
+            STATE="ARRIVING"
+            # 점자 버튼 바꾸기
+            con.control(std_left_cnt)
+        elif std_left_cnt<0:
+            print("system off")
+            return
         next_stn_id=route_std_list[stn_num_to_dest-std_left_cnt]['stn_id']
         print("next station:"+next_stn_id)
         print("next station name"+route_std_list[stn_num_to_dest-std_left_cnt]['stn_name'])
@@ -77,6 +86,7 @@ def send_my_gps_info_15s(route_std_list):
         print("next station name"+route_std_list[stn_num_to_dest-std_left_cnt]['stn_name'])
         pass
     
+  
     print ("15s job current time : {}".format(time.ctime()))
 
 '''
@@ -218,6 +228,8 @@ def switch_done_callback():
         STATE = "DEACTIVATE"
         # TODO : 종료(?)
 
+    elif STATE == "ARRIVING":
+        tts.tts_input("다음 정류장은"+ route_std_list[stn_num_to_dest-std_left_cnt]['stn_name']+"입니다.")
     else:
         tts.tts_scenario(STATE)
     print("switch_done_callback")

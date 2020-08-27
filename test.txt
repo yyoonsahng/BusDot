@@ -1,0 +1,8 @@
+DEACTIVE : 현재 위치한 정류소를 확인 중입니다.
+DEACTIVATE_CHK :
+ROUTE_NAME: 탑승할 버스의 노선 번호를 입력하세요.
+ROUTE_NAME_CHK :
+STN_NAME : 하차역을 예약해주세요.
+STN_NAME_CHK :노선번호를 확인해주세요.
+RUNNING:도착 전까지 10개 이상의 정류소가 남았습니다.
+ARRIVING:
