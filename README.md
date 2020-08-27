@@ -38,6 +38,13 @@
 - 네트워크 환경 설정
 
 
+- dependencies
+	```
+	pip install -r requirements.txt
+	```
+
+
+
 
 ### 서버와 GPS 통신:earth_asia:
 
