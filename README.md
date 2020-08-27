@@ -156,3 +156,7 @@ def control(num):#원하는 숫자의 점자 올라옴
 		GPIO.output(pin, GPIO.LOW)
 	print("completed")
 ``` 
+
+### 사전 설정
+1. 라즈베리 파이 오디오 출력 확인
+2. 네트워크 환경 설정
