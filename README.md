@@ -30,6 +30,10 @@
 	 # 개인 실행 환경에 따라 사운드 출력 변경 (예 3.5mm audio jack)
 	 - sudo amixer cset numid=3 1
 	```
+- 구글 cloud api 인증
+	```
+	export GOOGLE_APPLICATION_CREDENTIALS="[서비스 계정 키 파일 경로]"
+	```
 - 네트워크 환경 설정
 
 
