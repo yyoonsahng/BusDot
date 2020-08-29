@@ -15,9 +15,9 @@
 
 디바이스의 기능
 1. [서버와 GPS 정보 통신:earth_asia:](#gps)
-2. 타고자하는 버스 번호를 입력받아 서버에게 전달
-3. 서버로부터 정류장 데이터를 받아, 하차하고자하는 정류장 선택
-4. 도착정류장까지 남은 정류장 수를 점자로 표현
+2. [타고자하는 버스 번호를 입력받아 서버에게 전달:oncoming_bus:](#sel_bus)
+3. [서버로부터 정류장 데이터를 받아, 하차하고자하는 정류장 선택:busstop:](#sel_station)
+4. [도착정류장까지 남은 정류장 수를 점자로 표현:station:](#brille)
 
 
 ### :warning: 사전 설정 :warning:
@@ -88,7 +88,7 @@ def send_my_gps_info_15s(route_std_list):
 ``` 
 
 
-### 타고자하는 버스 번호를 입력받아 서버에게 전달:oncoming_bus:
+### 타고자하는 버스 번호를 입력받아 서버에게 전달:oncoming_bus: <a name="sel_bus"></a>
 
 - 이전 버튼을 누르면 수를 1 감소 (만약 0이라면 9로 감소)
 ``` python
@@ -124,7 +124,7 @@ def switch_save_callback():
 ``` 
 
 
-### 서버로부터 정류장 데이터를 받아, 하차하고자하는 정류장 선택:busstop:
+### 서버로부터 정류장 데이터를 받아, 하차하고자하는 정류장 선택:busstop: <a name="sel_station"></a>
 
 - 인자로 받은 타고자 하는 버스 번호(bus_num)를 이용해 서버에 해당 버스의 노선 정보를 요청후 json 형식으로 전달받음
 
@@ -146,7 +146,7 @@ def selectStation(bus_num, curr_stn):
 ``` 
 
 
-### 도착정류장까지 남은 정류장 수를 점자로 표현:station:
+### 도착정류장까지 남은 정류장 수를 점자로 표현:station: <a name="braille"></a>
 
 - br에 사용할 GPIO 핀의 번호들을 저장
 
