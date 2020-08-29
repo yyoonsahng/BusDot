@@ -17,7 +17,7 @@
 1. [서버와 GPS 정보 통신:earth_asia:](#gps)
 2. [타고자하는 버스 번호를 입력받아 서버에게 전달:oncoming_bus:](#sel_bus)
 3. [서버로부터 정류장 데이터를 받아, 하차하고자하는 정류장 선택:busstop:](#sel_station)
-4. [도착정류장까지 남은 정류장 수를 점자로 표현:station:](#brille)
+4. [도착정류장까지 남은 정류장 수를 점자로 표현:station:](#braille)
 
 
 ### :warning: 사전 설정 :warning:
