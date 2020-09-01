@@ -6,8 +6,8 @@
 
 
 ### 프로젝트 구성
-1. [서버](https://github.com/yangjae33/tajo_backend)
-2. [휴대폰 애플리케이션](https://github.com/seungyeonchoi/tajo_frontend)
+1. [서버](https://github.com/yangjae33/tajo_backend){: target="_blank"}
+2. [휴대폰 애플리케이션](https://github.com/seungyeonchoi/tajo_frontend){: target="_blank"}
 3. 디바이스
 
 ## :cherries:Device:cherries:
