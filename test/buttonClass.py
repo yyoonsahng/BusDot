@@ -73,11 +73,11 @@ class Button():
             print("")
             #노선 고르기
         if self.state == "ROUTE_NAME":
-            GuardNumberRange(0)
+            self.GuardNumberRange(0)
             print("SELECTED_NUM"+str(self.selected_num))
             #con.control(SELECTED_NUM)  
             time.sleep(2)  
-             
+
     def switch_next_callback(self,channel):
         print("state:"+self.state)
         # 노선 고르기
