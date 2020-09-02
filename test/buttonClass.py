@@ -72,7 +72,7 @@ class Button():
 
         if self.state == "ROUTE_NAME":
             self.GuardNumberRange(0)
-            print("NUM"+str(self.selected_num))
+            print("NUM : "+str(self.selected_num))
             #con.control(SELECTED_NUM)  
             time.sleep(2)  
 
