@@ -4,8 +4,12 @@ Created on Thu Aug 20 04:16:22 2020
 
 @author: tarah
 """
-import control as con
-import hw_init as hw
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+from modules import control as con
+from modules import hw_init as hw
+
 #import tts_module as tts
 import time
 from timeloop import Timeloop
@@ -304,4 +308,5 @@ if __name__ == "__main__":
             time.sleep(1)
     except KeyboardInterrupt:
         hw.destroy()
+
 

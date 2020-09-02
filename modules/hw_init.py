@@ -40,7 +40,7 @@ def init(switch_prev_callback, switch_next_callback,  switch_save_callback, swit
 
     GPIO.add_event_detect(SWITCH_TTS, GPIO.RISING, callback=switch_tts_callback)
     GPIO.add_event_detect(SWITCH_STT, GPIO.RISING, callback=switch_stt_callback)
-def init():
+def myinit():
     
     GPIO.setmode(GPIO.BCM)
     
@@ -54,7 +54,9 @@ def init():
 
     GPIO.add_event_detect(SWITCH_TTS,GPIO.RISING,callback=switch_tts_callback)
     GPIO.add_event_detect(SWITCH_STT,GPIO.RISING,callback=switch_stt_callback)
-
+def destroy():
+    GPIO.cleanup()
+    
 def switch_stt_callback(channel):
     #stt(next_stn_name) : 마이크 작동 > 텍스트로 변환
     print("stt")
