@@ -103,7 +103,11 @@ def send_my_gps_info_15s(route_std_list):
     
   
     print ("15s job current time : {}".format(time.ctime()))
-
+'''
+@tl.job(interval=timedelta(seconds=10))
+def gps_update(route_std_list):
+     #TODO 시연용 gps 정보 리스트나 파일 읽. tl.start()순간 실행 시작
+''' 
 '''
 mode
 0: prev
@@ -305,6 +309,7 @@ if __name__ == "__main__":
             time.sleep(1)
     except KeyboardInterrupt:
         hw.destroy()
+        #tl.stop()
 <<<<<<< HEAD:main.py
 
 =======
