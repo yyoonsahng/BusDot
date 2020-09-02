@@ -305,5 +305,8 @@ if __name__ == "__main__":
             time.sleep(1)
     except KeyboardInterrupt:
         hw.destroy()
+<<<<<<< HEAD:main.py
 
+=======
+>>>>>>> 04150e048a5a5858a78d942f128ffb45b10a3683:main.py
 
