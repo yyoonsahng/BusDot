@@ -17,8 +17,6 @@ from requests.exceptions import HTTPError
 MODE_PREV = 0
 MODE_NEXT = 1
 
-
-
 def select_route_name(self):
     #처음엔 0 출력
     con.control(self.selected_num)
@@ -32,14 +30,13 @@ class Button():
     current_stn_id = ""
     current_stn_name = ""
     selected_num = 0
-    mode = 0
 
     def __init__(self, userId):
         self.userId = userId
         self.state = "DEACTIVE"
         
     def GuardNumberRange(self,mode):
-        if self.mode == MODE_PREV:
+        if mode == MODE_PREV:
             if self.selected_num == 0:
                 self.selected_num = 9
             else:
