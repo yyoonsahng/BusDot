@@ -1,17 +1,13 @@
 # -*- coding: utf-8 -*-
+"""
+Created on Thu Aug 20 04:16:22 2020
 
-<<<<<<< HEAD
 @author: tarah
 """
-=======
->>>>>>> 04150e048a5a5858a78d942f128ffb45b10a3683
-import os
-import sys
-sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from modules import control as con
 from modules import hw_init as hw
+from modules import tts_module as tts
 
-#import tts_module as tts
 import time
 from timeloop import Timeloop
 from datetime import timedelta
@@ -20,6 +16,16 @@ import requests,json
 from requests.exceptions import HTTPError
 
 tl = Timeloop()
+ 
+# 시나리오별 State
+# 0."DEACTIVE" : 처음 확인버튼으로 GPS정보 송신
+# 0-1. "DEACTIVE_CHK" : GPS 확인질문
+# 1."ROUTE_NAME" : 노선 번호 입력
+# 1-1. "ROUTE_NAME_CHK" : 노선 번호 입력 확인질문
+# 2."STN_NAME" : 해당 노선을 지나는 정류장 중 하나 입력
+# 2-1. "STN_NAME_CHK" : 정류장 확인질문
+# 3."RUNNING" : 승차 직후 ~ 10 정거장 초과 남음
+# 4. "ARRIVING": 도착 전 10 정거장 이하 남음 (알림 시작)
 
 USER_ID = "root"
 
@@ -49,9 +55,6 @@ host="http://114.70.21.89:1337"
 route_std_list=[]               #승차 전 서버에서 받아 저장 (노선 별 버스 정류장 조회)
 std_left_cnt=6                  #남은 정류장 수
 stn_num_to_dest=7               #출발-목적지까지 갈 정류장 수
-
-MODE_PREV = 0
-MODE_NEXT = 1
 
 def setup():
     global STATE, SELECTED_NUM, SELECTED_ROUTE_NAME, SELECTED_STN_NAME,SELECTED_STN_ID
@@ -101,6 +104,13 @@ def send_my_gps_info_15s(route_std_list):
   
     print ("15s job current time : {}".format(time.ctime()))
 
+'''
+mode
+0: prev
+1: next
+'''
+MODE_PREV = 0
+MODE_NEXT = 1
 def GuardNumberRange(mode):
     global SELECTED_NUM
     if mode == MODE_PREV:
@@ -295,5 +305,8 @@ if __name__ == "__main__":
             time.sleep(1)
     except KeyboardInterrupt:
         hw.destroy()
+<<<<<<< HEAD:main.py
 
+=======
+>>>>>>> 04150e048a5a5858a78d942f128ffb45b10a3683:main.py
 
