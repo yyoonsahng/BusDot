@@ -7,6 +7,8 @@ Created on Thu Aug 27 07:33:17 2020
 from google.cloud import texttospeech
 import os,sys
 import json
+import os
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="../static/stt-test-283506-48b71d92f7f6.json"
 
 def get_tts_scenario():
     scene_dict={} #전역 & 초기화
