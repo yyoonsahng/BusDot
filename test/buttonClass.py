@@ -71,7 +71,13 @@ class Button():
         if self.state == "STN_NAME":
             # TODO 버스정류장 선택
             print("")
-    
+            #노선 고르기
+        if self.state == "ROUTE_NAME":
+            GuardNumberRange(0)
+            print("SELECTED_NUM"+str(self.selected_num))
+            #con.control(SELECTED_NUM)  
+            time.sleep(2)  
+             
     def switch_next_callback(self,channel):
         print("state:"+self.state)
         # 노선 고르기
@@ -92,7 +98,6 @@ class Button():
             self.selected_num = 0
 
     def switch_done_callback(self,channel):
-        print("?")
         print("state:"+self.state)
         # 승차 정류장 설정
         if self.state == "DEACTIVE":
