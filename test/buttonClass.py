@@ -26,7 +26,8 @@ class Button():
     state = "DEACTIVE"
     selected_route_name = ""
     selected_stn_id = ""
-    selected_stn_name = ""
+    # TODO 정류장 선택
+    selected_stn_name = "하계역"
     current_stn_id = ""
     current_stn_name = ""
     selected_num = 0

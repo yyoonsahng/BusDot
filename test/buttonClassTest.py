@@ -3,6 +3,7 @@
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+
 from modules import control as con
 from modules import hw_init as hw
 import buttonClass
