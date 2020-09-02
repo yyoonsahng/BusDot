@@ -69,10 +69,10 @@ class Button():
         if self.state == "STN_NAME":
             # TODO 버스정류장 선택
             print("")
-            #노선 고르기
+
         if self.state == "ROUTE_NAME":
             self.GuardNumberRange(0)
-            print("SELECTED_NUM"+str(self.selected_num))
+            print("NUM"+str(self.selected_num))
             #con.control(SELECTED_NUM)  
             time.sleep(2)  
 
@@ -87,6 +87,7 @@ class Button():
         if self.state == "STN_NAME":
             # TODO 버스정류장 선택
             print("")
+
     def switch_save_callback(self,channel):
         if self.state == "ROUTE_NAME":
             self.selected_route_name += str(self.selected_num)
@@ -112,7 +113,7 @@ class Button():
 
             print("승차 할 정류소가 \'"+self.current_stn_name+"\'가 맞습니까?\n")
             #tts.tts_input("승차할 정류소가 "+selected_stn_name+"가 맞습니까?")
-            #TO DO : 승차 정류소가 맞다면 save, 아니면 pre 눌러서 분기--> 그 이후에 상태 바꾸기
+            # TODO : 승차 정류소가 맞다면 save, 아니면 pre 눌러서 분기--> 그 이후에 상태 바꾸기
             self.state = "DEACTIVE_CHK"
 
         # 승차 정류장 설정 확인
