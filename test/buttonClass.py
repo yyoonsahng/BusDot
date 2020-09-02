@@ -36,7 +36,7 @@ def select_route_name():
 
 class Button():
     userId = ""
-    state = "DEACTIVATE"
+    state = "DEACTIVE"
     selected_route_name = ""
     selected_stn_id = ""
     selected_stn_name = ""
@@ -46,7 +46,7 @@ class Button():
     
     def __init__(self, userId):
         self.userId = userId
-        self.state = "DEACTIVATE"
+        self.state = "DEACTIVE"
         
     def switch_prev_callback(self,channel):
         print("state:"+self.state)
