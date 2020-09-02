@@ -12,7 +12,7 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="../static/stt-test-283506-48b71d92
 
 def get_tts_scenario():
     scene_dict={} #전역 & 초기화
-    with open('test.txt',encoding='latin-1') as f: 
+    with open('../static/test.txt',encoding='latin-1') as f: 
         for line in f:
             li=line.split(":")
             key,value=li[0],li[1].strip()
