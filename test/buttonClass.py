@@ -90,11 +90,10 @@ class Button():
             self.selected_num = 0
 
     def switch_done_callback(self,channel):
-            
+        print("?")
         print("state:"+self.state)
         # 승차 정류장 설정
         if self.state == "DEACTIVE":
-            
             # GPS보내기
             pos_x,pos_y=hw.gps()
             dict_data = dict()
