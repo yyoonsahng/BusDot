@@ -19,9 +19,9 @@ MODE_NEXT = 1
 
 
 
-def select_route_name():
+def select_route_name(self):
     #처음엔 0 출력
-    con.control(selected_num)
+    con.control(self.selected_num)
 
 class Button():
     userId = ""
@@ -33,7 +33,7 @@ class Button():
     current_stn_name = ""
     selected_num = 0
     mode = 0
-    
+
     def __init__(self, userId):
         self.userId = userId
         self.state = "DEACTIVE"
@@ -76,7 +76,7 @@ class Button():
         print("state:"+self.state)
         # 노선 고르기
         if self.state == "ROUTE_NAME":
-            GuardNumberRange(1)
+            self.GuardNumberRange(1)
             print("NUM : "+str(self.selected_num))
             #con.control(selected_num)
             time.sleep(2)
