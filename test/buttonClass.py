@@ -17,18 +17,7 @@ from requests.exceptions import HTTPError
 MODE_PREV = 0
 MODE_NEXT = 1
 
-def GuardNumberRange(mode):
-    global selected_num
-    if mode == MODE_PREV:
-        if selected_num == 0:
-            selected_num = 9
-        else:
-            selected_num -= 1
-    else:
-        if selected_num == 9:
-            selected_num =0
-        else:
-            selected_num += 1
+
 
 def select_route_name():
     #처음엔 0 출력
@@ -43,11 +32,24 @@ class Button():
     current_stn_id = ""
     current_stn_name = ""
     selected_num = 0
+    mode = 0
     
     def __init__(self, userId):
         self.userId = userId
         self.state = "DEACTIVE"
         
+    def GuardNumberRange(self,mode):
+        if self.mode == MODE_PREV:
+            if self.selected_num == 0:
+                self.selected_num = 9
+            else:
+                self.selected_num -= 1
+        else:
+            if self.selected_num == 9:
+                self.selected_num =0
+            else:
+                self.selected_num += 1
+
     def switch_prev_callback(self,channel):
         print("state:"+self.state)
         try:
