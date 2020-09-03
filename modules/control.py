@@ -51,8 +51,9 @@ def control(num):#원하는 숫자의 점자 올라옴
 
 def destroy_gpio():
 	GPIO.cleanup()
-
+'''
 if __name__ == '__main__':
 	setup()
 	control(7)
 	destroy_gpio()
+'''
