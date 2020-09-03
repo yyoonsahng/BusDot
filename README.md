@@ -10,6 +10,10 @@
 2. [휴대폰 애플리케이션](https://github.com/seungyeonchoi/tajo_frontend)
 3. 디바이스
 
+
+### Architecture
+<img src="https://user-images.githubusercontent.com/48347010/92088064-59620800-ee07-11ea-8ca7-ba0b4852c31a.png" width="500" height="600"/>
+
 ## :cherries:Device:cherries:
 - 함께타조 프로젝트에서 라즈베리파이는 시각장애인이 버스를 편리하게 이용하기 위해 지참하는 디바이스 역할을 제공
 
