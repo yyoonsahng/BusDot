@@ -3,6 +3,7 @@ import sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 from modules import control as con
 from modules import hw_init as hw
+from modules import busStop as bs
 
 from settings import host,port
 
@@ -68,7 +69,8 @@ class Button():
         
         if self.state == "STN_NAME":
             # TODO 버스정류장 선택
-            print("")
+            bs.move_left()
+                
 
         if self.state == "ROUTE_NAME":
             self.GuardNumberRange(0)
@@ -86,7 +88,7 @@ class Button():
             time.sleep(2)
         if self.state == "STN_NAME":
             # TODO 버스정류장 선택
-            print("")
+            bs.move_right()
 
     def switch_save_callback(self,channel):
         if self.state == "ROUTE_NAME":
@@ -138,10 +140,12 @@ class Button():
             #tts.tts_input("노선 설정이 완료되었습니다.")
             self.state = "STN_NAME"
             print("하차역을 설정하세요")
+            bs.selectStation(self.select_route_name, self.curr_stn)
 
         # 하차벨 예약
         elif self.state == "STN_NAME":
-        
+            self.selected_stn_name = bs.curr_stop
+            self.selected_stn_id = bs.bus_stop_id[bs.ind]
             if self.selected_stn_id == "" or self.selected_route_name == "":
                 self.state = "STN_NAME"
                 print("유효하지 않은 역 또는 노선")

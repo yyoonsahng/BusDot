@@ -1,44 +1,54 @@
 import requests
 #import RPi.GPIO as GPIO
-bus_stop = []
+bus_stop_name = []
+bus_stop_id = []
 ind = 0
-state = 0
+curr_stop = ""
 def selectStation(bus_num, curr_stn):
-    global bus_stop
+    global bus_stop_name
+    global curr_stop
     global ind
     url = 'http://localhost:1337/api/route-station/' + str(bus_num)
     response = requests.get(url)
     res = response.json()
     for i in res:
-        bus_stop.append(i['stn_name'])
+        bus_stop_name.append(i['stn_name'])
+        bus_stop_id.append(i['stn_id'])
     #print(bus_stop)
-    ind = bus_stop.index(curr_stn)
+    ind = bus_stop_name.index(curr_stn)
+    curr_stop = bus_stop_name[ind]
     #print(ind)
-'''
-def setup():
-    global state
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    GPIO.add_event_detect(18, GPIO.RISING, callback=move_right)
-    GPIO.setup(17, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    GPIO.add_event_detect(17, GPIO.RISING, callback=move_left)
-'''
-
 
 def move_right():
     global ind
-    global state
-    ind += 1
-    curr_stop = bus_stop[ind]
+    global curr_stop
+    if ind < len(bus_stop_name) - 1:
+        ind += 1
+    else:
+        print("종착지입니다.")
+        ind = 0
+    curr_stop = bus_stop_name[ind]
+    print(curr_stop)
 
 def move_left():
     global ind
-    global state
-    ind -= 1
-    curr_stop = bus_stop[ind]
-
+    global curr_stop
+    if ind > 0:
+        ind -= 1
+    else:
+        print("종착지입니다.")
+        ind = len(bus_stop_name) - 1
+    curr_stop = bus_stop_name[ind]
+    print(curr_stop)
+'''
 if __name__ == '__main__':
     selectStation(143, '신동중학교')
     #setup()
-    print(bus_stop)
+    print(curr_stop)
+    print(bus_stop_name)
+    print(len(bus_stop_name))
+    move_right()
     print(ind)
+    move_left()
+
+'''
