@@ -11,8 +11,13 @@
 3. [디바이스](https://github.com/yyoonsahng/tajo_device/wiki)
 
 
+
+
 ### Architecture
 <img src="https://user-images.githubusercontent.com/48347010/92088064-59620800-ee07-11ea-8ca7-ba0b4852c31a.png" width="500" height="600"/>
+
+
+
 
 
 ### 프로젝트 주요 특징 및 기능
