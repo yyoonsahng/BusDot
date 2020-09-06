@@ -6,9 +6,9 @@
 
 
 ### 프로젝트 구성
-1. [서버](https://github.com/yangjae33/tajo_backend)
-2. [휴대폰 애플리케이션](https://github.com/seungyeonchoi/tajo_frontend)
-3. [디바이스](https://github.com/yyoonsahng/tajo_device/wiki)
+1. [타조 서버](https://github.com/yangjae33/tajo_backend)
+2. [타조 애플리케이션](https://github.com/seungyeonchoi/tajo_frontend)
+3. [타조 디바이스](https://github.com/yyoonsahng/tajo_device/wiki)
 
 
 ### Architecture
