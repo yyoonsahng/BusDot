@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*-
 
-<<<<<<< HEAD
-@author: tarah
-"""
-=======
->>>>>>> 04150e048a5a5858a78d942f128ffb45b10a3683
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
@@ -151,7 +146,6 @@ def switch_prev_callback(channel):
         print("SELECTED_NUM"+str(SELECTED_NUM))
         #con.control(SELECTED_NUM)  
         time.sleep(2)      
-    
 
 def switch_next_callback(channel):
     global STATE
