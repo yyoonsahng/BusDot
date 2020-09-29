@@ -36,7 +36,7 @@ numbers = [br1, br2, br3, br4, br5, br6, br7, br8, br9, br0]
 
 def setup():
 	GPIO.setmode(GPIO.BCM)
-	for i in range(0, 4):
+	for i in range(0, 6):
 		GPIO.setup(br[i], GPIO.OUT)
 
 def control(num):#원하는 숫자의 점자 올라옴
