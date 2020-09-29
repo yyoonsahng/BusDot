@@ -35,25 +35,25 @@ br0 = [17, 23, 24]
 numbers = [br1, br2, br3, br4, br5, br6, br7, br8, br9, br0]
 
 def setup():
-	GPIO.setmode(GPIO.BCM)
-	for i in range(0, 4):
-		GPIO.setup(br[i], GPIO.OUT)
+    GPIO.setmode(GPIO.BCM)
+    for i in range(0, 4):
+	GPIO.setup(br[i], GPIO.OUT)
 
 def control(num):#원하는 숫자의 점자 올라옴
-	for pin in numbers[num - 1]:
-		GPIO.output(pin, GPIO.HIGH)
-	time.sleep(3)#원하는 시간만큼 점자 올라옴
-	#clean
-	for pin in numbers[num - 1]:
-		GPIO.output(pin, GPIO.LOW)
-	print("completed")
+    for pin in numbers[num - 1]:
+	GPIO.output(pin, GPIO.HIGH)
+    time.sleep(3)#원하는 시간만큼 점자 올라옴
+    #clean
+    for pin in numbers[num - 1]:
+	GPIO.output(pin, GPIO.LOW)
+    print("completed")
 
 
 def destroy_gpio():
-	GPIO.cleanup()
+    GPIO.cleanup()
 '''
 if __name__ == '__main__':
-	setup()
-	control(7)
-	destroy_gpio()
+    setup()
+    control(7)
+    destroy_gpio()
 '''
