@@ -11,13 +11,13 @@ import RPi.GPIO as GPIO
 #import stt
 
 SWITCH_PREV=21 #이전
-SWITCH_NEXT=22 #다음
-SWITCH_SAVE=23 #저장
-SWITCH_DONE=24 #확인
+SWITCH_NEXT=25 #다음
+SWITCH_SAVE=20 #저장
+SWITCH_DONE=26 #확인
 
-SWITCH_TTS=25
-SWITCH_STT=26
-GPS=24
+SWITCH_TTS=13
+SWITCH_STT=19
+GPS=16
 
 
 def init(switch_prev_callback, switch_next_callback,  switch_save_callback, switch_done_callback):
