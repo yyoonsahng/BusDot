@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
@@ -75,7 +76,7 @@ class Button():
         if self.state == "ROUTE_NAME":
             self.GuardNumberRange(0)
             print("NUM : "+str(self.selected_num))
-            #con.control(SELECTED_NUM)  
+            con.control(self.selected_num)  
             time.sleep(2)  
 
     def switch_next_callback(self,channel):
@@ -84,7 +85,7 @@ class Button():
         if self.state == "ROUTE_NAME":
             self.GuardNumberRange(1)
             print("NUM : "+str(self.selected_num))
-            #con.control(selected_num)
+            con.control(self.selected_num)
             time.sleep(2)
         if self.state == "STN_NAME":
             # TODO 버스정류장 선택
