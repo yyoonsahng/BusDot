@@ -7,7 +7,7 @@ from modules import hw_init as hw
 from modules import busStop as bs
 
 from settings import host,port
-
+import RPi.GPIO as GPIO
 #import tts_module as tts
 import time
 from timeloop import Timeloop
@@ -18,7 +18,18 @@ from requests.exceptions import HTTPError
 
 MODE_PREV = 0
 MODE_NEXT = 1
+br1 = [17, 18, 27, 22, 23, 24]
+br2 = [18, 22, 23, 24]
+br3 = [27, 22, 23, 24]
+br4 = [27, 23, 24]
+br5 = [18, 27, 23, 24]
+br6 = [22, 23, 24]
+br7 = [23, 24]
+br8 = [18, 23, 24]
+br9 = [17, 22, 23, 24]
+br0 = [17, 23, 24]
 
+numbers = [br1, br2, br3, br4, br5, br6, br7, br8, br9, br0]
 def select_route_name(self):
     #처음엔 0 출력
     con.control(self.selected_num)
@@ -76,8 +87,16 @@ class Button():
         if self.state == "ROUTE_NAME":
             self.GuardNumberRange(0)
             print("NUM : "+str(self.selected_num))
-            con.control(self.selected_num)  
-            time.sleep(2)  
+            #con.control(self.selected_num)
+            for pin in numbers[self.selected_num - 1]:
+                GPIO.output(pin, GPIO.HIGH)
+            time.sleep(2)
+            # #clean
+            for pin in numbers[self.selected_num - 1]:
+                GPIO.output(pin, GPIO.LOW)
+            print("completed")
+
+            #time.sleep(2)  
 
     def switch_next_callback(self,channel):
         print("state:"+self.state)
@@ -85,8 +104,16 @@ class Button():
         if self.state == "ROUTE_NAME":
             self.GuardNumberRange(1)
             print("NUM : "+str(self.selected_num))
-            con.control(self.selected_num)
+            #con.control(self.selected_num)
+            for pin in numbers[self.selected_num - 1]:
+                GPIO.output(pin, GPIO.HIGH)
             time.sleep(2)
+            # #clean
+            for pin in numbers[self.selected_num - 1]:
+                GPIO.output(pin, GPIO.LOW)
+            print("completed")
+            
+            #time.sleep(2)
         if self.state == "STN_NAME":
             # TODO 버스정류장 선택
             bs.move_right()

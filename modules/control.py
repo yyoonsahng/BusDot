@@ -24,21 +24,13 @@ numbers = [br1, br2, br3, br4, br5, br6, br7, br8, br9, br0]
 
 def setup():
 	GPIO.setmode(GPIO.BCM)
-<<<<<<< HEAD
-	for i in range(0,6):
-=======
 	for i in range(0, 6):
->>>>>>> 19d6689a3107fdd10a71f71f803e830ada72fc68
 		GPIO.setup(br[i], GPIO.OUT)
 
 def control(num):
 	for pin in numbers[num - 1]:
 		GPIO.output(pin, GPIO.HIGH)
-<<<<<<< HEAD
-	time.sleep(2)
-=======
 	time.sleep(3)#원하는 시간만큼 점자 올라옴
->>>>>>> 19d6689a3107fdd10a71f71f803e830ada72fc68
 	# #clean
 	for pin in numbers[num - 1]:
 		GPIO.output(pin, GPIO.LOW)
@@ -48,16 +40,9 @@ def control(num):
 def destroy_gpio():
 	GPIO.cleanup()
 	
-<<<<<<< HEAD
-#if __name__ == '__main__':
-#	setup()
-#	control(1)
-#	destroy_gpio()
-=======
 '''
 if __name__ == '__main__':
 	setup()
 	control(7)
 	destroy_gpio()
 '''
->>>>>>> 19d6689a3107fdd10a71f71f803e830ada72fc68
