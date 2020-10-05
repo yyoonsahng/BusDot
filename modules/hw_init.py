@@ -17,7 +17,6 @@ SWITCH_DONE=26 #확인
 
 SWITCH_TTS=13
 SWITCH_STT=19
-GPS=16
 br = [17, 18, 27, 22, 23, 24]
 
 
@@ -25,6 +24,8 @@ def init(switch_prev_callback, switch_next_callback,  switch_save_callback, swit
     GPIO.setmode(GPIO.BCM)
     for i in range(0, 6):
         GPIO.setup(br[i], GPIO.OUT)
+    GPIO.setup(16, GPIO.OUT)
+    GPIO.output(16, GPIO.HIGH)
     # initialize pins
     GPIO.setup(SWITCH_PREV, GPIO.IN, pull_up_down=GPIO.PUD_UP)
     GPIO.setup(SWITCH_NEXT, GPIO.IN, pull_up_down=GPIO.PUD_UP)

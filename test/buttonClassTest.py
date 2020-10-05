@@ -12,8 +12,9 @@ import buttonClass
 import time
 from timeloop import Timeloop
 from datetime import timedelta
-
+import RPi.GPIO as GPIO
 USER_ID = "root"
+br = [17, 18, 27, 22, 23, 24]
 
 if __name__ == "__main__":
     bc = buttonClass.Button(USER_ID)
@@ -23,5 +24,8 @@ if __name__ == "__main__":
     try:
         while True:
             time.sleep(2)
+            for pin in br:
+                GPIO.output(pin, GPIO.LOW)
+            
     except KeyboardInterrupt:
         hw.destroy()
