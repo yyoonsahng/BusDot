@@ -30,7 +30,7 @@ def setup():
 def control(num):
 	for pin in numbers[num - 1]:
 		GPIO.output(pin, GPIO.HIGH)
-	time.sleep(3)#원하는 시간만큼 점자 올라옴
+	time.sleep(2)#원하는 시간만큼 점자 올라옴
 	#clean
 	for pin in numbers[num - 1]:
 		GPIO.output(pin, GPIO.LOW)

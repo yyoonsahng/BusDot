@@ -88,16 +88,23 @@ class Button():
             self.GuardNumberRange(0)
             print("NUM : "+str(self.selected_num))
             #con.control(self.selected_num)
-            for pin in numbers[self.selected_num]:
-                #GPIO.output(pin, GPIO.HIGH)
-                pass
-            time.sleep(2)
-            # #clean
-            #for pin in numbers[self.selected_num - 1]:
-            #    GPIO.output(pin, GPIO.LOW)
-            #print("completed")
+            GPIO.remove_event_detect(21)
+            GPIO.remove_event_detect(25)
+            GPIO.remove_event_detect(26)
+            GPIO.remove_event_detect(13)
+            GPIO.remove_event_detect(20)
 
-            #time.sleep(2)  
+            for i in range(0, 6):
+                GPIO.setup(br[i], GPIO.OUT)
+            for pin in numbers[self.selected_num]:
+                GPIO.output(pin, GPIO.HIGH)
+            time.sleep(2)
+            for pin in numbers[self.selected_num]:
+                GPIO.output(pin, GPIO.LOW)
+            GPIO.add_event_detect(21, GPIO.RISING, self.switch_prev_callback, bouncetime = 200)
+            GPIO.add_event_detect(25, GPIO.RISING, self.switch_next_callback, bouncetime = 200)
+            GPIO.add_event_detect(20, GPIO.RISING, self.switch_save_callback, bouncetime = 200)
+            GPIO.add_event_detect(26, GPIO.RISING, self.switch_done_callback, bouncetime = 200)
 
     def switch_next_callback(self,channel):
         print("next-state:"+self.state)
@@ -119,22 +126,23 @@ class Button():
             time.sleep(2)
             for pin in numbers[self.selected_num]:
                 GPIO.output(pin, GPIO.LOW)
-            GPIO.add_event_detect(21, GPIO.RISING, self.switch_prev_callback)
-            GPIO.add_event_detect(25, GPIO.RISING, self.switch_next_callback)
-            GPIO.add_event_detect(20, GPIO.RISING, self.switch_save_callback)
-            GPIO.add_event_detect(26, GPIO.RISING, self.switch_done_callback)
+            GPIO.add_event_detect(21, GPIO.RISING, self.switch_prev_callback, bouncetime = 200)
+            GPIO.add_event_detect(25, GPIO.RISING, self.switch_next_callback, bouncetime = 200)
+            GPIO.add_event_detect(20, GPIO.RISING, self.switch_save_callback, bouncetime = 200)
+            GPIO.add_event_detect(13, GPIO.RISING, self.switch_tts_callback, bouncetime = 200)
+            GPIO.add_event_detect(26, GPIO.RISING, self.switch_done_callback, bouncetime = 200)
 
             #time.sleep(2)
         if self.state == "STN_NAME":
             # TODO 버스정류장 선택
-            #bs.move_right()
+            bs.move_right()
             pass
 
     def switch_save_callback(self,channel):
         print('save')
+        time.sleep(2)
         if self.state == "ROUTE_NAME":
             self.selected_route_name += str(self.selected_num)
-            time.sleep(2)
             print("입력된 숫자 : "+str(self.selected_num))
             print("현재까지 저장된 노선 : "+str(self.selected_route_name))
             self.selected_num = 0
@@ -181,12 +189,13 @@ class Button():
             #tts.tts_input("노선 설정이 완료되었습니다.")
             self.state = "STN_NAME"
             print("하차역을 설정하세요")
-            bs.selectStation(self.select_route_name, self.curr_stn)
+            bs.selectStation(self.selected_route_name, self.current_stn_name)
 
         # 하차벨 예약
         elif self.state == "STN_NAME":
             self.selected_stn_name = bs.curr_stop
             self.selected_stn_id = bs.bus_stop_id[bs.ind]
+            print("buttonClass"+ str(self.selected_stn_name) + str(self.selected_stn_id))
             if self.selected_stn_id == "" or self.selected_route_name == "":
                 self.state = "STN_NAME"
                 print("유효하지 않은 역 또는 노선")
@@ -211,6 +220,9 @@ class Button():
             print("노선 " + self.selected_route_name + " 과 정류장 이름 "+self.selected_stn_id+" 가 맞습니까? ")
             self.state = "STN_NAME_CHK"
 
+    def switch_tts_callback(channel):
+        #tts() : 녹음 파일을 재생
+        print("tts")
         # 하차벨 예약 확인
         # elif state == "STN_NAME_CHK":
         #     dict_data = dict()

@@ -19,7 +19,7 @@ br = [17, 18, 27, 22, 23, 24]
 if __name__ == "__main__":
     bc = buttonClass.Button(USER_ID)
     # GPIO 초기화 (GPS,Solenoid, Switch) - 이벤트 핸들러 등록
-    hw.init(bc.switch_prev_callback, bc.switch_next_callback,bc.switch_save_callback, bc.switch_done_callback)
+    hw.init(bc.switch_prev_callback, bc.switch_next_callback,bc.switch_save_callback, bc.switch_done_callback,bc.switch_tts_callback)
     
     try:
         while True:
