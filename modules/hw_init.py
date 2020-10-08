@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Aug 20 01:33:57 2020
-
 @author: tarah
 """
 #37.5663° N, 126.9779° E

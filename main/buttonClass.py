@@ -35,7 +35,7 @@ def select_route_name(self):
     con.control(self.selected_num)
 
 class Button():
-    userId = ""
+    userId = "tajo"
     state = "DEACTIVE"
     selected_route_name = ""
     selected_stn_id = ""
@@ -219,7 +219,18 @@ class Button():
 
             print("노선 " + self.selected_route_name + " 과 정류장 이름 "+self.selected_stn_id+" 가 맞습니까? ")
             self.state = "STN_NAME_CHK"
-
+        elif self.state == "STN_NAME_CHK":
+            dict_data = dict()
+            dict_data['stn_id'] = self.selected_stn_id
+            dict_data['route_nm'] = self.selected_route_name
+            dict_data['user_id'] = self.userId
+            url = host+'/buzzer/register'
+            data = requests.post(url,data=json.jumps(dict_data))
+            if data.status_code == 200:
+                print("예약 성공!")
+            else:
+                print("예약 실패")
+            return
     def switch_tts_callback(channel):
         #tts() : 녹음 파일을 재생
         print("tts")
