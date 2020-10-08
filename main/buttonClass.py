@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
@@ -6,7 +7,7 @@ from modules import hw_init as hw
 from modules import busStop as bs
 
 from settings import host,port
-
+import RPi.GPIO as GPIO
 #import tts_module as tts
 import time
 from timeloop import Timeloop
@@ -14,10 +15,21 @@ from datetime import timedelta
 
 import requests,json
 from requests.exceptions import HTTPError
-
+br = [17, 18, 27, 22, 23, 24]
 MODE_PREV = 0
 MODE_NEXT = 1
+br1 = [17, 18, 27, 22, 23, 24]
+br2 = [18, 22, 23, 24]
+br3 = [27, 22, 23, 24]
+br4 = [27, 23, 24]
+br5 = [18, 27, 23, 24]
+br6 = [22, 23, 24]
+br7 = [23, 24]
+br8 = [18, 23, 24]
+br9 = [17, 22, 23, 24]
+br0 = [17, 23, 24]
 
+numbers = [br0, br1, br2, br3, br4, br5, br6, br7, br8, br9]
 def select_route_name(self):
     #처음엔 0 출력
     con.control(self.selected_num)
@@ -50,7 +62,7 @@ class Button():
                 self.selected_num += 1
 
     def switch_prev_callback(self,channel):
-        print("state:"+self.state)
+        print("prev-state:"+self.state)
         try:
             if len(self.state) > 3 and self.state[-3:] == "CHK":
                 self.state = self.state[:-4]
@@ -75,31 +87,68 @@ class Button():
         if self.state == "ROUTE_NAME":
             self.GuardNumberRange(0)
             print("NUM : "+str(self.selected_num))
-            #con.control(SELECTED_NUM)  
-            time.sleep(2)  
+            #con.control(self.selected_num)
+            GPIO.remove_event_detect(21)
+            GPIO.remove_event_detect(25)
+            GPIO.remove_event_detect(26)
+            GPIO.remove_event_detect(13)
+            GPIO.remove_event_detect(20)
+
+            for i in range(0, 6):
+                GPIO.setup(br[i], GPIO.OUT)
+            for pin in numbers[self.selected_num]:
+                GPIO.output(pin, GPIO.HIGH)
+            time.sleep(2)
+            for pin in numbers[self.selected_num]:
+                GPIO.output(pin, GPIO.LOW)
+            GPIO.add_event_detect(21, GPIO.RISING, self.switch_prev_callback, bouncetime = 200)
+            GPIO.add_event_detect(25, GPIO.RISING, self.switch_next_callback, bouncetime = 200)
+            GPIO.add_event_detect(20, GPIO.RISING, self.switch_save_callback, bouncetime = 200)
+            GPIO.add_event_detect(26, GPIO.RISING, self.switch_done_callback, bouncetime = 200)
 
     def switch_next_callback(self,channel):
-        print("state:"+self.state)
+        print("next-state:"+self.state)
         # 노선 고르기
         if self.state == "ROUTE_NAME":
             self.GuardNumberRange(1)
             print("NUM : "+str(self.selected_num))
-            #con.control(selected_num)
+            #con.control(self.selected_num)
+            GPIO.remove_event_detect(21)
+            GPIO.remove_event_detect(25)
+            GPIO.remove_event_detect(26)
+            GPIO.remove_event_detect(13)
+            GPIO.remove_event_detect(20)
+
+            for i in range(0, 6):
+                GPIO.setup(br[i], GPIO.OUT)
+            for pin in numbers[self.selected_num]:
+                GPIO.output(pin, GPIO.HIGH)
             time.sleep(2)
+            for pin in numbers[self.selected_num]:
+                GPIO.output(pin, GPIO.LOW)
+            GPIO.add_event_detect(21, GPIO.RISING, self.switch_prev_callback, bouncetime = 200)
+            GPIO.add_event_detect(25, GPIO.RISING, self.switch_next_callback, bouncetime = 200)
+            GPIO.add_event_detect(20, GPIO.RISING, self.switch_save_callback, bouncetime = 200)
+            GPIO.add_event_detect(13, GPIO.RISING, self.switch_tts_callback, bouncetime = 200)
+            GPIO.add_event_detect(26, GPIO.RISING, self.switch_done_callback, bouncetime = 200)
+
+            #time.sleep(2)
         if self.state == "STN_NAME":
             # TODO 버스정류장 선택
             bs.move_right()
+            pass
 
     def switch_save_callback(self,channel):
+        print('save')
+        time.sleep(2)
         if self.state == "ROUTE_NAME":
             self.selected_route_name += str(self.selected_num)
-            time.sleep(2)
             print("입력된 숫자 : "+str(self.selected_num))
             print("현재까지 저장된 노선 : "+str(self.selected_route_name))
             self.selected_num = 0
 
     def switch_done_callback(self,channel):
-        print("state:"+self.state)
+        print("done-state:"+self.state)
         # 승차 정류장 설정
         if self.state == "DEACTIVE":
             # GPS보내기
@@ -140,12 +189,13 @@ class Button():
             #tts.tts_input("노선 설정이 완료되었습니다.")
             self.state = "STN_NAME"
             print("하차역을 설정하세요")
-            bs.selectStation(self.select_route_name, self.curr_stn)
+            bs.selectStation(self.selected_route_name, self.current_stn_name)
 
         # 하차벨 예약
         elif self.state == "STN_NAME":
             self.selected_stn_name = bs.curr_stop
             self.selected_stn_id = bs.bus_stop_id[bs.ind]
+            print("buttonClass"+ str(self.selected_stn_name) + str(self.selected_stn_id))
             if self.selected_stn_id == "" or self.selected_route_name == "":
                 self.state = "STN_NAME"
                 print("유효하지 않은 역 또는 노선")
@@ -170,6 +220,9 @@ class Button():
             print("노선 " + self.selected_route_name + " 과 정류장 이름 "+self.selected_stn_id+" 가 맞습니까? ")
             self.state = "STN_NAME_CHK"
 
+    def switch_tts_callback(channel):
+        #tts() : 녹음 파일을 재생
+        print("tts")
         # 하차벨 예약 확인
         # elif state == "STN_NAME_CHK":
         #     dict_data = dict()

@@ -8,13 +8,14 @@ def selectStation(bus_num, curr_stn):
     global bus_stop_name
     global curr_stop
     global ind
-    url = 'http://localhost:1337/api/route-station/' + str(bus_num)
+    url = 'http://114.70.21.89:1337/api/route-station/' + str(bus_num)
     response = requests.get(url)
     res = response.json()
     for i in res:
         bus_stop_name.append(i['stn_name'])
         bus_stop_id.append(i['stn_id'])
-    #print(bus_stop)
+    print(curr_stn)
+    curr_stop = curr_stn
     ind = bus_stop_name.index(curr_stn)
     curr_stop = bus_stop_name[ind]
     #print(ind)
