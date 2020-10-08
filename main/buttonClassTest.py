@@ -4,11 +4,15 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
+from modules import control as con
 from modules import hw_init as hw
 import buttonClass
 
 #import tts_module as tts
 import time
+from timeloop import Timeloop
+from datetime import timedelta
+import RPi.GPIO as GPIO
 USER_ID = "root"
 br = [17, 18, 27, 22, 23, 24]
 
