@@ -31,7 +31,7 @@ def control(num):
 	for pin in numbers[num - 1]:
 		GPIO.output(pin, GPIO.HIGH)
 	time.sleep(3)#원하는 시간만큼 점자 올라옴
-	# #clean
+	#clean
 	for pin in numbers[num - 1]:
 		GPIO.output(pin, GPIO.LOW)
 	print("completed")
@@ -40,9 +40,9 @@ def control(num):
 def destroy_gpio():
 	GPIO.cleanup()
 	
-'''
+
 if __name__ == '__main__':
 	setup()
-	control(7)
+	control(1)
 	destroy_gpio()
-'''
+

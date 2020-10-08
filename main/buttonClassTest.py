@@ -24,8 +24,6 @@ if __name__ == "__main__":
     try:
         while True:
             time.sleep(2)
-            for pin in br:
-                GPIO.output(pin, GPIO.LOW)
             
     except KeyboardInterrupt:
         hw.destroy()

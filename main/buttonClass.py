@@ -15,7 +15,7 @@ from datetime import timedelta
 
 import requests,json
 from requests.exceptions import HTTPError
-
+br = [17, 18, 27, 22, 23, 24]
 MODE_PREV = 0
 MODE_NEXT = 1
 br1 = [17, 18, 27, 22, 23, 24]
@@ -89,8 +89,9 @@ class Button():
             print("NUM : "+str(self.selected_num))
             #con.control(self.selected_num)
             for pin in numbers[self.selected_num]:
-                GPIO.output(pin, GPIO.HIGH)
-            #time.sleep(2)
+                #GPIO.output(pin, GPIO.HIGH)
+                pass
+            time.sleep(2)
             # #clean
             #for pin in numbers[self.selected_num - 1]:
             #    GPIO.output(pin, GPIO.LOW)
@@ -105,14 +106,24 @@ class Button():
             self.GuardNumberRange(1)
             print("NUM : "+str(self.selected_num))
             #con.control(self.selected_num)
+            GPIO.remove_event_detect(21)
+            GPIO.remove_event_detect(25)
+            GPIO.remove_event_detect(26)
+            GPIO.remove_event_detect(13)
+            GPIO.remove_event_detect(20)
+
+            for i in range(0, 6):
+                GPIO.setup(br[i], GPIO.OUT)
             for pin in numbers[self.selected_num]:
                 GPIO.output(pin, GPIO.HIGH)
-            #time.sleep(2)
-            # #clean
-            #for pin in numbers[self.selected_num - 1]:
-            #    GPIO.output(pin, GPIO.LOW)
-            #print("completed")
-            
+            time.sleep(2)
+            for pin in numbers[self.selected_num]:
+                GPIO.output(pin, GPIO.LOW)
+            GPIO.add_event_detect(21, GPIO.RISING, self.switch_prev_callback)
+            GPIO.add_event_detect(25, GPIO.RISING, self.switch_next_callback)
+            GPIO.add_event_detect(20, GPIO.RISING, self.switch_save_callback)
+            GPIO.add_event_detect(26, GPIO.RISING, self.switch_done_callback)
+
             #time.sleep(2)
         if self.state == "STN_NAME":
             # TODO 버스정류장 선택
