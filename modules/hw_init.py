@@ -16,7 +16,6 @@ SWITCH_SAVE=20 #저장
 SWITCH_DONE=26 #확인
 
 SWITCH_TTS=13
-SWITCH_STT=19
 br = [17, 18, 27, 22, 23, 24]
 
 
@@ -33,7 +32,6 @@ def init(switch_prev_callback, switch_next_callback,  switch_save_callback, swit
     GPIO.setup(SWITCH_DONE, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
     GPIO.setup(SWITCH_TTS, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-    GPIO.setup(SWITCH_STT, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
     # add eventHandler
     GPIO.add_event_detect(SWITCH_PREV, GPIO.RISING, callback=switch_prev_callback)
@@ -42,7 +40,6 @@ def init(switch_prev_callback, switch_next_callback,  switch_save_callback, swit
     GPIO.add_event_detect(SWITCH_DONE, GPIO.RISING, callback=switch_done_callback)
 
     GPIO.add_event_detect(SWITCH_TTS, GPIO.RISING, callback=switch_tts_callback)
-    GPIO.add_event_detect(SWITCH_STT, GPIO.RISING, callback=switch_stt_callback)
 def myinit():
     
     GPIO.setmode(GPIO.BCM)
@@ -60,9 +57,6 @@ def myinit():
 def destroy():
     GPIO.cleanup()
     
-def switch_stt_callback(channel):
-    #stt(next_stn_name) : 마이크 작동 > 텍스트로 변환
-    print("stt")
 def switch_tts_callback(channel):
     #tts() : 녹음 파일을 재생
     print("tts")
