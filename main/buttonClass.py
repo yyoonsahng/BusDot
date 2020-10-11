@@ -307,36 +307,6 @@ class Button():
 
         elif self.state == "ARRIVING":
             tts.tts_input("다음 정류장은"+ self.route_std_list[self.stn_num_to_dest-self.std_left_cnt]['stn_name']+"입니다아.")
-        elif self.state == "DEACTIVE":
-            tts.tts_input("세 정거장 남았습니다. 현재 건대입구역 사거리이.")
-            time.sleep(2)
-            tts.tts_input("두 정거장 남았습니다. 현재 서울화양초등학교오.")
-            time.sleep(2)
-            tts.tts_input("한 정거장 남았습니다. 현재 어린이대공원역 앞.")
-            time.sleep(2)
-            tts.tts_input("목적지에 도착했습니다. 현재 화양리이.")
-
-            time.sleep(2)
-            tts.tts_input("건대역입니다아.")
-            time.sleep(2)
-            tts.tts_input("건대입구역 사거리 입니다아.")
-
-            time.sleep(2)
-
-            tts.tts_input("서울화양초등학교 입니다아.")
-
-            time.sleep(2)
-
-            tts.tts_input("어린이대공원역 입니다아.")
-            time.sleep(2)
-
-            tts.tts_input("화양리 입니다아.")
-            time.sleep(2)
-
-            tts.tts_input("240번 버스와 하차역 화양리가 맞습니까아?")
-
-            time.sleep(2)
-            tts.tts_input("예약이 완료되었습니다.")
 
         else:
             tts.tts_scenario(self.state)

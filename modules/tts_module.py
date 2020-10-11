@@ -8,7 +8,7 @@ from google.cloud import texttospeech
 import os,sys
 import json
 import os
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="../static/tajotts-292205-9dbc70766dd0.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="../static/tts.json"#구글 클라우드 tts키를 받아 tts.json에 입력하세요
 
 def get_tts_scenario():
     scene_dict={} #전역 & 초기화
@@ -26,6 +26,7 @@ def get_tts_scenario():
    
 def tts_input(texttospeak):
     #print("synthesize {} to sound".format(texttospeak))
+    texttospeak+="아아"
     synthesis_input = texttospeech.SynthesisInput(text=texttospeak)
     tts_control(synthesis_input)
     print("complete the task")
