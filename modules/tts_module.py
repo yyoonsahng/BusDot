@@ -26,7 +26,7 @@ def get_tts_scenario():
    
 def tts_input(texttospeak):
     #print("synthesize {} to sound".format(texttospeak))
-    texttospeak+="입니다아"
+    texttospeak+="아아"
     synthesis_input = texttospeech.SynthesisInput(text=texttospeak)
     tts_control(synthesis_input)
     print("complete the task")
