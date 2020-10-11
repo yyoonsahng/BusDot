@@ -168,7 +168,8 @@ def switch_save_callback(channel):
         print("입력된 숫자 : "+str(SELECTED_NUM))
         print("현재까지 저장된 노선 : "+str(SELECTED_ROUTE_NAME))
         SELECTED_NUM = 0
-
+def switch_tts_callback(channel):
+    tts.tts_scenario(STATE)
 def switch_done_callback(channel):
 
     global STATE
@@ -280,7 +281,7 @@ def switch_done_callback(channel):
     
 if __name__ == "__main__":
     # GPIO 초기화 (GPS,Solenoid, Switch) - 이벤트 핸들러 등록
-    hw.init(switch_prev_callback, switch_next_callback,switch_save_callback, switch_done_callback)
+    hw.init(switch_prev_callback, switch_next_callback,switch_save_callback, switch_done_callback,switch_tts_callback)
     setup()
     # STATE_ANNOUNCEMENTS=tts.get_tts_scenario() 
     # tl.start(block=False)
