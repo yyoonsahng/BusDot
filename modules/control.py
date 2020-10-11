@@ -40,9 +40,9 @@ def control(num):
 def destroy_gpio():
 	GPIO.cleanup()
 	
-
+'''
 if __name__ == '__main__':
 	setup()
 	control(1)
 	destroy_gpio()
-
+'''

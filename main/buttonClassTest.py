@@ -13,7 +13,7 @@ import time
 from timeloop import Timeloop
 from datetime import timedelta
 import RPi.GPIO as GPIO
-USER_ID = "root"
+USER_ID = "tajo"
 br = [17, 18, 27, 22, 23, 24]
 
 if __name__ == "__main__":

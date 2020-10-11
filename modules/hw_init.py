@@ -41,7 +41,13 @@ def init(switch_prev_callback, switch_next_callback,  switch_save_callback, swit
     GPIO.add_event_detect(SWITCH_TTS, GPIO.RISING, callback=switch_tts_callback, bouncetime = 200)
 def destroy():
     GPIO.cleanup()
-    
+
+def busGps(bus_id):
+    #requests.get("114.70.21.89:1337/api/gps/bus")
+    pos_x="127.0701692006"
+    pos_y="37.5385662456"
+    return pos_x, pos_y
+
 def gps():
     pos_x="127.0701692006"
     pos_y="37.5385662456"

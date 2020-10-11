@@ -8,11 +8,11 @@ from google.cloud import texttospeech
 import os,sys
 import json
 import os
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="../static/stt-test-283506-48b71d92f7f6.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="../static/tajotts-292205-9dbc70766dd0.json"
 
 def get_tts_scenario():
     scene_dict={} #전역 & 초기화
-    with open('../static/test.txt',encoding='latin-1') as f: 
+    with open('../static/test.txt',encoding='UTF-8') as f: 
         for line in f:
             li=line.split(":")
             key,value=li[0],li[1].strip()
@@ -68,9 +68,6 @@ def tts_control(synthesis_input):
  
 
     os.system('omxplayer ./output.mp3')
-
-    sys.exit()
-
 
     
 if __name__ == "__main__":

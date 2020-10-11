@@ -1,4 +1,5 @@
 import requests
+from . import tts_module as tts
 #import RPi.GPIO as GPIO
 bus_stop_name = []
 bus_stop_id = []
@@ -30,6 +31,7 @@ def move_right():
         ind = 0
     curr_stop = bus_stop_name[ind]
     print(curr_stop)
+    tts.tts_input(curr_stop+"입니다아.")
 
 def move_left():
     global ind
@@ -41,6 +43,7 @@ def move_left():
         ind = len(bus_stop_name) - 1
     curr_stop = bus_stop_name[ind]
     print(curr_stop)
+    tts.tts_input(curr_stop+"입니다아.")
 '''
 if __name__ == '__main__':
     selectStation(143, '신동중학교')
