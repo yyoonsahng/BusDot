@@ -1,4 +1,4 @@
-# :oncoming_bus:HamkkeTajo Device:oncoming_bus:
+# :oncoming_bus:BusDot Device:oncoming_bus:
 
 
 ### 시각장애인을 위한 버스 이용 보조 서비스 ‘버스닷’ by 함께타조:bird:
